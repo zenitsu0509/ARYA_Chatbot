@@ -1,0 +1,98 @@
+There are 100 rooms in Hostel.
+The hostel comprises 100 rooms, with four floors containing 25 rooms each, and each room can house three students.
+There are a total of 100 rooms in the hostel, distributed as 25 rooms on each of the four floors, with a capacity of three students per room.
+The hostel has 100 rooms, arranged across four floors with 25 rooms per floor, and each room can accommodate three students.
+Every student is responsible for maintaining cleanliness and hygiene in their allotted room. All garbage and daily waste material should be thrown only in the dustbins.
+Every student must deposit the full amount of Hostel, HMC, and Mess fees within the notified period of time.
+If a student quits or is expelled after allotment/possession, they will have to pay the mess labor charge and maintenance charges for the entire year.
+Students must deposit a self-attested photocopy of the mess DD along with the original DD (Demand Draft).
+If a student goes home or out of station, they must inform the warden and enter the information in the attendance register.
+Consumption of alcohol, tobacco, pan masala, smoking, or prohibited drugs is STRICTLY PROHIBITED inside the hostel. Strict action will be taken if found.
+Every student must follow the mess timings for breakfast, lunch, and dinner in appropriate decent attire.
+If any student damages hostel property, the cost of repair/replacement will be adjusted from their mess fee, and they may be expelled from the hostel.
+Installation of fiber cable or cable connections from external agencies is not allowed.
+Playing any game inside the hostel corridor, playing loud music, shouting, hooting, or any act causing disturbance is strictly prohibited.
+Students must not use the bathroom for long durations in the morning and should avoid washing clothes during morning hours.
+Guardians, parents, friends, or relatives are not allowed to stay in hostel rooms. A short day visit by parents requires prior permission from the warden.
+Bringing and keeping mess utensils in a student's room is strictly prohibited. Only in cases of illness, with permission, can mess food be taken to the room.
+A student can avail of a 'mess off' only 10% (maximum 3 days) of the total working days of the mess in a month.
+Other circulars and guidelines issued by institute authorities, warden, or proctor shall also apply.
+Students must wear proper clothes in the common areas of the hostel.
+Indiscipline, misbehavior, or unnecessary arguments with hostel staff or administration will lead to cancellation of hostel allotment.
+All students must sign the attendance register daily provided in the hostel.
+Entertaining or feeding any animals, especially dogs, inside the hostel is an offense.
+Without written permission from the warden, gatherings of more than 4 students are strictly prohibited, except during mess hours.
+Swapping or exchanging allotted rooms is strictly prohibited.
+Students residing in the hostel are not allowed to use motor vehicles.
+No student is allowed to leave the hostel after 10 PM without written permission from the warden, except in a medical emergency (with permission via phone).
+Storage or usage of inflammable materials, cooking appliances, or high-noise equipment is strictly prohibited in the hostel.
+Any kind of direct or indirect involvement in ragging is a punishable offense.
+We apologize for the inconvenience. Please submit a written application regarding the Wi-Fi issue to the warden or hostel office for further assistance.
+We apologize for the cleanliness issue. Kindly write an application detailing the issue and submit it to the warden or hostel office for prompt action.
+We are sorry for the trouble. Please submit a written application about the water issue to the warden or hostel office, and we'll ensure it is resolved as soon as possible.
+We apologize for the inconvenience. Kindly write a detailed application and submit it to the warden or hostel office so that appropriate action can be taken.
+We apologize for the inconvenience. Kindly submit a written application to the warden or hostel office, and we will look into resolving the electricity issue promptly.
+Sorry for the trouble. Please submit a written application about the laundry issue to the warden or hostel office, and we will ensure it gets addressed.
+We apologize for the inconvenience. Kindly submit a written application about the food quality to the mess manager or warden so that we can address it.
+We are sorry for the disturbance. Please submit a complaint in writing to the warden or hostel office so appropriate action can be taken.
+We apologize for the inconvenience. Kindly submit a written application to the warden or hostel office, and we will look into resolving the heating issue promptly.
+We are sorry for the issue. Please submit a written application regarding the broken furniture to the warden or hostel office for repair or replacement.
+We apologize for the inconvenience. Please submit a written application to the warden or hostel office, and we will ensure the internet issue is resolved as soon as possible.
+We are sorry for the trouble. Please submit a written application about the hot water issue to the warden or hostel office so that it can be resolved promptly.
+We apologize for the inconvenience caused by the disturbance. Kindly report the issue in writing to the warden so that appropriate action can be taken.
+We apologize for the inconvenience. Please submit a written application about the bulb replacement to the warden or hostel office for further assistance.
+You must keep your room clean and avoid littering.
+You must keep your room clean and avoid littering.
+Regular room cleaning and trash disposal are required.
+Maintain hygiene by cleaning your room regularly.
+Keep your room neat and dispose of waste properly.
+The hostel fee is due by the 5th of every month.
+Yes, there is a 2% late fee if you miss the deadline.
+You can pay mess and hostel fees fees via DD.
+Hostel fees can be paid at the Arya Bhatt Warden office.
+No online payment is not accepted,You have to pay through DD.
+Yes, maintenance charges are part of the hostel fees.
+Maintenance charges are 4000.
+You can report maintenance issues via DD named to HMC AryaBhat
+Maintenance fees are non-refundable.
+Maintenance charges are fixed based on room.
+Students must keep their rooms clean and tidy at all times. Waste should only be disposed of in the designated dustbins.
+Yes, each student is expected to maintain their room's hygiene by regularly cleaning and disposing of trash in the proper bins.
+It's mandatory for students to ensure that their rooms remain clean, with all waste being disposed of in the dustbins provided.
+Students are responsible for keeping their rooms clean and must dispose of waste properly, using the dustbins for all garbage.
+Students are required to maintain cleanliness in their rooms and should dispose of all waste in the designated dustbins to ensure proper hygiene.
+The annual hostel fee is 14,500 rupees, and it must be paid via demand draft (DD) only. Cash and online payments are not accepted.
+The hostel fee is Rs14,500 per year and must be submitted through a demand draft. Payments through cash or online methods are not allowed.
+The yearly hostel fee is 14,500 rupees, and payment is accepted only through a DD. Neither cash nor online payment options are available.
+The hostel fee for a year is 14,500 rupees, and payment can only be made through demand draft. Other payment methods like cash or online transfers are not accepted.
+The hostel fee is 14,500 rupees for the year, and it must be paid by demand draft. Payments through cash or online methods are not accepted.
+The mess charges are  rupees rupees19,000 per semester.
+The mess fee is rupees 19,000 for every semester.
+The mess charges amount to rupees 19,000 per semester
+The mess service costs rupees 19,000 per semester.
+The mess charges for each semester are rupees 19,000.
+You need to inform the warden about your departure, after which your mess services will be paused for a maximum of 3 days.
+Notify the warden before you leave, and the mess will be closed for up to 3 days.
+You should inform the warden that youre going home, and your mess service will be suspended for a maximum of 3 days.
+You must tell the warden before leaving, and the mess will be closed for a period of up to 3 days.
+You need to notify the warden about your trip home, and your mess service will be stopped for a maximum of 3 days.
+To become the mess secretary, a Google form is released when you join the hostel. After submitting the form, youll have to attend an interview for selection.
+You need to fill out a Google form when the hostel opens, and then attend an interview as part of the selection process.
+First, you need to fill out a Google form provided when you join the hostel. Once submitted, you will have to appear for an interview to be considered for the position.
+The process involves filling out a Google form that is made available when you join the hostel. After that, youll have to go through an interview to be selected.
+A Google form is made available when you join the hostel. You must fill it out, and then you will be called for an interview to be considered for the position.
+Yes, parents are allowed to visit the hostel, but they are not permitted to stay overnight.
+Parents can visit the hostel, but they are not allowed to stay during the night
+Parents can visit the hostel, but they are not allowed to stay overnight in the premises
+Yes, parents can visit, but they are not permitted to stay in the hostel at night.
+Parents are welcome to visit the hostel, but they cannot stay overnight in the hostel.
+No, the use of electric cookers is not allowed in the hostel for safety reasons.
+No, electric cookers are prohibited in hostel rooms to maintain safety regulations.
+No, the use of electric cookers is strictly forbidden in the hostel.
+No, using electric cookers in the hostel is not allowed due to safety concerns.
+No, electric cookers are not permitted inside hostel rooms for safety and fire hazard prevention.
+The hostel has 100 rooms in total, with 25 rooms on each of the four floors, accommodating three students per room.
+There are 100 rooms in the hostel, with 25 rooms on each of the four floors, allowing three students to live in each room.
+The hostel comprises 100 rooms, with four floors containing 25 rooms each, and each room can house three students.
+There are a total of 100 rooms in the hostel, distributed as 25 rooms on each of the four floors, with a capacity of three students per room.
+The hostel has 100 rooms, arranged across four floors with 25 rooms per floor, and each room can accommodate three students.
