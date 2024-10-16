@@ -3,7 +3,9 @@ __pycache__/
 *.py[cod]
 
 .env
+.venv
 
 *.sqlite3
 *.db
 *.log
+try.ipynb
