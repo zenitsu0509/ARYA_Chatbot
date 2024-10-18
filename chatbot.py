@@ -36,16 +36,13 @@ def setup_llm(api_token: str) -> HuggingFaceEndpoint:
     repo_id = "mistralai/Mixtral-8x7B-Instruct-v0.1"
     endpoint_url = f"https://api-inference.huggingface.co/models/{repo_id}"
     
-    # Pass parameters explicitly
-    return HuggingFaceEndpoint(
-        endpoint_url=endpoint_url,
-        huggingfacehub_api_token=api_token,
-        max_length=512,
-        temperature=0.7,
-        top_k=50,
-        num_return_sequences=1,
-        task="text2text-generation"  # Changed from text-generation
-    )
+    # Updated parameters structure
+    model_kwargs = {
+        "max_length": 512,
+        "temperature": 0.7,
+        "top_k": 50,
+        "num_return_sequences": 1
+    }
     
     return HuggingFaceEndpoint(
         endpoint_url=endpoint_url,
@@ -129,6 +126,15 @@ def main():
                     response = qa_chain.invoke(user_question)
                     
                     # Extract sources if available
+                    sources = []
+                    if 'source_documents' in response:
+                        sources = [doc.metadata.get('source', 'Unknown') for doc in response['source_documents']]
+                    
+                    result = {
+                        'question': user_question,
+                        'response': response['result'],
+                        'sources': sources
+                    }
                     st.session_state.chat_history.append(result)
             except Exception as e:
                 st.error(f"Error processing your question: {str(e)}")
@@ -140,6 +146,10 @@ def main():
                 with st.container():
                     st.write(f"**You:** {chat['question']}")
                     st.write(f"**ARYA:** {chat['response']}")
+                    if chat.get('sources'):
+                        with st.expander("View Sources"):
+                            for source in chat['sources']:
+                                st.write(f"- {source}")
                     st.markdown("---")
         
         # Footer
