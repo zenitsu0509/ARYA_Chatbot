@@ -36,18 +36,14 @@ def setup_llm(api_token: str) -> HuggingFaceEndpoint:
     repo_id = "mistralai/Mixtral-8x7B-Instruct-v0.1"
     endpoint_url = f"https://api-inference.huggingface.co/models/{repo_id}"
     
-    # Updated parameters structure
-    model_kwargs = {
-        "max_length": 512,
-        "temperature": 0.7,
-        "top_k": 50,
-        "num_return_sequences": 1
-    }
-    
+    # Pass parameters explicitly
     return HuggingFaceEndpoint(
         endpoint_url=endpoint_url,
         huggingfacehub_api_token=api_token,
-        model_kwargs=model_kwargs,
+        max_length=512,
+        temperature=0.7,
+        top_k=50,
+        num_return_sequences=1,
         task="text2text-generation"  # Changed from text-generation
     )
 
