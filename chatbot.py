@@ -44,7 +44,7 @@ def setup_llm(api_token: str) -> HuggingFaceEndpoint:
         temperature=0.7,
         top_k=50,
         num_return_sequences=1,
-        task="text2text-generation"  # Changed from text-generation
+        task="text2text-generation"
     )
 
 def create_qa_chain(llm: HuggingFaceEndpoint, docsearch: PineconeVectorStore) -> RetrievalQA:
@@ -71,7 +71,7 @@ def create_qa_chain(llm: HuggingFaceEndpoint, docsearch: PineconeVectorStore) ->
         llm=llm,
         chain_type="stuff",
         retriever=docsearch.as_retriever(search_kwargs={'k': 3}),
-        return_source_documents=True,
+        return_source_documents=False,  # Set this to False to remove source extraction
         chain_type_kwargs={"prompt": prompt}
     )
 
@@ -121,15 +121,9 @@ def main():
                 with st.spinner('Processing your question...'):
                     response = qa_chain.invoke(user_question)
                     
-                    # Extract sources if available
-                    sources = []
-                    if 'source_documents' in response:
-                        sources = [doc.metadata.get('source', 'Unknown') for doc in response['source_documents']]
-                    
                     result = {
                         'question': user_question,
-                        'response': response['result'],
-                        'sources': sources
+                        'response': response['result']
                     }
                     st.session_state.chat_history.append(result)
             except Exception as e:
@@ -142,10 +136,6 @@ def main():
                 with st.container():
                     st.write(f"**You:** {chat['question']}")
                     st.write(f"**ARYA:** {chat['response']}")
-                    if chat.get('sources'):
-                        with st.expander("View Sources"):
-                            for source in chat['sources']:
-                                st.write(f"- {source}")
                     st.markdown("---")
         
         # Footer
