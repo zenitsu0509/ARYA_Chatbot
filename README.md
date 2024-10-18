@@ -1,97 +1,123 @@
-Arya Bhatt Hostel Chatbot
-=========================
+ARYA - Arya Bhatt Hostel Chatbot
+================================
 
-This repository contains the code for an AI-powered chatbot that answers questions related to Arya Bhatt Hostel. The chatbot utilizes state-of-the-art natural language processing (NLP) models to provide accurate and concise answers from a knowledge base. It integrates **Pinecone** for efficient vector-based search and **Hugging Face** models for generating human-like responses. The chatbot is deployed using **Streamlit** for an interactive web-based interface.
+Welcome to **ARYA**, the official chatbot for Arya Bhatt Hostel. This chatbot is designed to help students and hostel residents with information related to hostel rules, facilities, and other queries. It uses Pinecone for vector search and Hugging Face for language model inference.
 
 Features
 --------
 
--   **Real-time question answering**: The chatbot can answer questions about Arya Bhatt Hostel, such as hostel rules, facilities, and more.
--   **Efficient vector search**: Pinecone is used to store and retrieve information from the vector database, ensuring fast and relevant responses.
--   **Hugging Face NLP models**: The chatbot utilizes Hugging Face's `mistralai/Mixtral-8x7B-Instruct-v0.1` model for generating responses.
--   **Streamlit interface**: A simple and intuitive interface that allows users to ask questions and view chat history.
--   **Chat history**: The app displays the full chat history during the session, showing past interactions and responses.
--   **Dynamic and customizable**: Easily adaptable to other use cases with different knowledge bases or NLP models.
+-   Provides accurate and concise answers about hostel facilities and rules.
+-   Friendly, professional responses.
+-   Real-time question processing.
+-   Simple and easy-to-use interface.
 
-Getting Started
----------------
+Tech Stack
+----------
 
-### Prerequisites
+-   **Streamlit**: For building the front-end of the chatbot.
+-   **Pinecone**: For vector-based document retrieval.
+-   **Hugging Face**: For language model and text generation.
+-   **LangChain**: To manage LLM chains and document search.
+-   **Python**: The core language used.
 
-To run this project locally, you'll need the following tools installed:
+Setup Instructions
+------------------
 
--   Python 3.8 or higher
--   Streamlit
--   Pinecone
--   Hugging Face's Transformers
+### 1\. Clone the Repository
 
-### Installation
+```bash
+git clone https://github.com/zenitsu0509/ARYA_Chatbot.git
+cd ARYA_Chatbot
+```
 
-1.  Clone the repository:
+### 2\. Install Dependencies
 
-    `git clone https://github.com/zenitsu0509/Arya_Chatbot.git
-    cd Arya_Chatbot`
+Ensure that you have Python 3.8+ installed. You can install the required Python packages using:
+```
+pip install -r requirements.txt
+```
 
-2.  Install the required dependencies:
+### 3\. Set Up Environment Variables
 
-    `pip install -r requirements.txt`
+You will need to configure environment variables to access the necessary APIs. Create a `.env` file in the project directory and add the following keys:
+```
+PINECONE_API_KEY=<your-pinecone-api-key>
+PINECONE_ENV=<your-pinecone-environment>
+HUGGING_FACE_API=<your-huggingface-api-key>
+```
 
-3.  Set up your environment variables:
+### 4\. Configure the Index
 
-    -   Create a `.env` file in the root directory of your project.
-    -   Add your **Pinecone** and **Hugging Face** API keys as environment variables in the `.env` file:
+Make sure you have a **Pinecone** index created and properly configured with the documents for Arya Bhatt Hostel information.
 
-        `PINECONE_API_KEY=your-pinecone-api-key
-        PINECONE_ENV=your-pinecone-environment
-        HUGGING_FACE_API=your-hugging-face-api-key`
+### 5\. Run the Application
 
-### Running the App
+You can start the Streamlit app using the following command:
 
-After installing the dependencies and setting up the environment variables, you can run the chatbot using Streamlit:
+```bash
+streamlit run app.py
+```
 
-`streamlit run app.py`
+The application will launch locally, and you can access the chatbot via your browser at `http://localhost:8501`.
 
-This will start the Streamlit server and launch the chatbot in your web browser. You can now interact with the chatbot and ask questions about Arya Bhatt Hostel.
+How It Works
+------------
 
-Usage
------
-
-Once the app is running, simply enter your questions in the input field. The chatbot will respond with the most accurate and concise answer based on the available knowledge base. You can also view the chat history within the session to see past conversations.
+1.  **Pinecone Vector Store**: Retrieves relevant information from the hostel knowledge base using vector embeddings.
+2.  **Hugging Face LLM**: Generates human-like responses based on the retrieved context and the user's question.
+3.  **Streamlit Interface**: Provides an intuitive and responsive front-end for users to interact with the bot.
 
 Project Structure
 -----------------
 
--   **app.py**: The main application file containing the Streamlit UI and logic for the chatbot.
--   **chatbot.py**: Core functionality for embedding questions, retrieving context, and generating responses.
--   **requirements.txt**: List of dependencies needed to run the application.
--   **.env.example**: Example environment file with placeholders for API keys.
+```bash
+arya-hostel-chatbot/
+│
+├── app.py                # Main application file
+├── config.py             # Configuration loader for API keys and settings
+├── requirements.txt      # Python dependencies
+├── .env                  # Environment variables file
+├── README.md             # Project documentation
+└── .gitignore            # Files to be ignored in version control
+```
 
-Technologies Used
------------------
+Key Functions
+-------------
 
--   **Pinecone**: For vector-based search and context retrieval.
--   **Hugging Face Transformers**: For NLP-based response generation.
--   **Streamlit**: For deploying the chatbot with a web interface.
--   **Python**: Core programming language for implementing the chatbot logic.
+-   **setup_pinecone**: Initializes the Pinecone vector store for document search.
+-   **setup_llm**: Configures the Hugging Face language model used for generating responses.
+-   **create_qa_chain**: Combines the vector store with the LLM to create the question-answering logic.
+-   **main**: Manages the Streamlit interface and user interactions.
+
+Customization
+-------------
+
+You can modify the following parameters to customize ARYA:
+
+-   **Language Model**: Change the Hugging Face model by updating the `repo_id` in the `setup_llm` function.
+-   **Index Name**: Change the Pinecone index by modifying the `index_name` in `setup_pinecone`.
 
 Future Enhancements
 -------------------
 
--   Add more knowledge and rules to the vector database to cover a wider range of hostel-related queries.
--   Implement support for multiple languages using multilingual models.
--   Improve the user interface with additional features, such as voice input and real-time notifications.
+-   **Admin Interface**: Allow hostel admins to update or add new knowledge base entries.
+-   **Multilingual Support**: Support for other languages to assist international students.
 
 Contributing
 ------------
 
-Contributions are welcome! Feel free to fork this repository, make improvements, and submit a pull request.
+If you'd like to contribute to the development of this project:
+
+1.  Fork the repository.
+2.  Create a new branch for your feature/bugfix.
+3.  Submit a pull request with a detailed explanation of your changes.
 
 License
 -------
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License. See the LICENSE file for details.
 
-Maintainer
-----------
+* * * * *
 
-Developed and maintained by **Himanshu**. Feel free to reach out for any questions or collaboration opportunities.
+💻 Developed and maintained by **Himanshu Gangwar**\
+🔄 Last updated: October 2024
