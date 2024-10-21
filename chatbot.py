@@ -1,3 +1,11 @@
+import os
+from typing import Dict, List
+from langchain_pinecone import PineconeVectorStore
+from langchain_pinecone import PineconeEmbeddings
+from pinecone import Pinecone, PineconeException
+from langchain_huggingface import HuggingFaceEmbeddings, HuggingFaceEndpoint
+from langchain.chains import RetrievalQA
+from langchain.prompts import PromptTemplate
 class AryaChatbot:
     def __init__(self, pinecone_api_key: str, pinecone_env: str, huggingface_api: str):
         self.pinecone_api_key = pinecone_api_key
