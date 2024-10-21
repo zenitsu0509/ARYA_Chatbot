@@ -18,6 +18,23 @@ def initialize_chatbot():
         st.error(f"Failed to initialize chatbot: {str(e)}")
         return None
 
+def handle_user_input(user_question):
+    """Handle user input and generate response."""
+    if user_question and st.session_state.chatbot:
+        try:
+            with st.spinner('Processing your question...'):
+                response = st.session_state.chatbot.get_response(user_question)
+                
+                result = {
+                    'question': user_question,
+                    'response': response
+                }
+                st.session_state.chat_history.append(result)
+                # Clear the input after sending
+                st.session_state.user_input = ""
+        except Exception as e:
+            st.error(f"Error processing your question: {str(e)}")
+
 def main():
     try:
         # Suppress torch warning
@@ -43,21 +60,23 @@ def main():
         if "chat_history" not in st.session_state:
             st.session_state.chat_history = []
         
-        # Chat input
-        user_question = st.text_input("Your Question:", key="user_input")
+        # Create a container for input elements
+        input_container = st.container()
         
-        if user_question and st.session_state.chatbot:
-            try:
-                with st.spinner('Processing your question...'):
-                    response = st.session_state.chatbot.get_response(user_question)
-                    
-                    result = {
-                        'question': user_question,
-                        'response': response
-                    }
-                    st.session_state.chat_history.append(result)
-            except Exception as e:
-                st.error(f"Error processing your question: {str(e)}")
+        with input_container:
+            col1, col2 = st.columns([5, 1])
+            
+            with col1:
+                user_question = st.text_input(
+                    "Your Question:",
+                    key="user_input",
+                    on_change=handle_user_input,
+                    args=(st.session_state.user_input,) if "user_input" in st.session_state else ("",)
+                )
+            
+            with col2:
+                if st.button("Send", use_container_width=True):
+                    handle_user_input(user_question)
         
         # Display chat history
         if st.session_state.chat_history:
