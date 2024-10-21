@@ -3,7 +3,6 @@ import warnings
 from config import load_config
 from chatbot import AryaChatbot
 
-# Cache the chatbot initialization
 @st.cache_resource
 def initialize_chatbot():
     """Initialize the chatbot with configuration."""
@@ -19,6 +18,11 @@ def initialize_chatbot():
     except Exception as e:
         st.error(f"Failed to initialize chatbot: {str(e)}")
         return None
+
+def handle_enter():
+    """Handle Enter key press"""
+    if st.session_state.user_input and st.session_state.user_input.strip():
+        handle_user_input(st.session_state.user_input)
 
 def handle_user_input(user_question):
     """Handle user input and generate response."""
@@ -38,6 +42,7 @@ def handle_user_input(user_question):
                     'question': user_question,
                     'response': response
                 })
+                # Clear input after sending
                 st.session_state.user_input = ""
         except Exception as e:
             st.error(f"Error processing your question: {str(e)}")
@@ -47,7 +52,6 @@ def display_chat_history():
     if not st.session_state.chat_history:
         return
         
-    # Add pagination
     items_per_page = 5
     total_items = len(st.session_state.chat_history)
     total_pages = (total_items + items_per_page - 1) // items_per_page
@@ -60,14 +64,12 @@ def display_chat_history():
     
     st.write("### Recent Conversations")
     
-    # Display current page items
     for chat in reversed(st.session_state.chat_history[start_idx:end_idx]):
         with st.container():
             st.write(f"**You:** {chat['question']}")
             st.write(f"**ARYA:** {chat['response']}")
             st.markdown("---")
     
-    # Pagination controls
     if total_pages > 1:
         col1, col2, col3 = st.columns([1, 2, 1])
         with col1:
@@ -81,10 +83,8 @@ def display_chat_history():
 
 def main():
     try:
-        # Suppress warnings only once at startup
         warnings.filterwarnings("ignore", message=".*torch.classes.*")
         
-        # Streamlined page config
         st.set_page_config(
             page_title="ARYA",
             page_icon="🏢",
@@ -92,35 +92,49 @@ def main():
             initial_sidebar_state="collapsed"
         )
         
-        # Minimize markdown content
         st.title("🏢 ARYA - Your Hostel Assistant")
         st.write("Welcome! Ask me anything about Arya Bhatt Hostel.")
         
-        # Initialize states only if not exists
+        # Initialize states
         if "chatbot" not in st.session_state:
             st.session_state.chatbot = initialize_chatbot()
         
         if "chat_history" not in st.session_state:
             st.session_state.chat_history = []
         
-        # Efficient input handling
+        # Input container with mobile-friendly buttons
         with st.container():
-            col1, col2 = st.columns([5, 1])
+            # Using columns for input and buttons
+            col1, col2, col3, col4 = st.columns([6, 1.5, 1.5, 1.5])
+            
             with col1:
-                user_question = st.text_input(
+                # Text input
+                st.text_input(
                     "Your Question:",
                     key="user_input",
-                    on_change=handle_user_input,
-                    args=(st.session_state.user_input,) if "user_input" in st.session_state else ("",)
+                    on_change=handle_enter,
+                    placeholder="Type your question..."
                 )
+            
+            # Mobile-friendly buttons
             with col2:
-                if st.button("Send", use_container_width=True):
-                    handle_user_input(user_question)
+                if st.button("Enter ↵", use_container_width=True):
+                    handle_user_input(st.session_state.user_input)
+            
+            with col3:
+                if st.button("Send →", use_container_width=True):
+                    handle_user_input(st.session_state.user_input)
+            
+            # Clear button for mobile users
+            with col4:
+                if st.button("Clear ✗", use_container_width=True):
+                    st.session_state.user_input = ""
+                    st.experimental_rerun()
         
-        # Display chat history with pagination
         display_chat_history()
         
-        # Minimal footer
+        # Footer with mobile-friendly spacing
+        st.markdown("<br>", unsafe_allow_html=True)
         st.markdown("---\n💻 Developed by **Himanshu**")
         
     except Exception as e:
