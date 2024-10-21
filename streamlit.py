@@ -1,5 +1,3 @@
-# Now let's update the Streamlit app (save as app.py):
-
 import streamlit as st
 import warnings
 from config import load_config
@@ -10,11 +8,7 @@ def initialize_chatbot():
     """Initialize the chatbot with configuration."""
     try:
         config = load_config()
-        return AryaChatbot(
-            pinecone_api_key=config['PINECONE_API_KEY'],
-            pinecone_env=config['PINECONE_ENV'],
-            huggingface_api=config['HUGGING_FACE_API']
-        )
+        return AryaChatbot()  # No need to pass parameters since they are loaded in the chatbot itself
     except Exception as e:
         st.error(f"Failed to initialize chatbot: {str(e)}")
         return None
