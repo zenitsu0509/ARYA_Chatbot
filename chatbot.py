@@ -23,7 +23,7 @@ class AryaChatbot:
         self.llm = self._setup_llm()
         self.qa_chain = self._create_qa_chain()
         
-    def _setup_pinecone(self, index_name: str = "arya-index") -> PineconeVectorStore:
+    def _setup_pinecone(self, index_name: str = "arya-index-o") -> PineconeVectorStore:
         """Initialize Pinecone and return vector store."""
         try:
             pc = Pinecone(api_key=self.pinecone_api_key, environment=self.pinecone_env)
@@ -37,7 +37,7 @@ class AryaChatbot:
             return PineconeVectorStore(
                 index=index,
                 embedding=embeddings,
-                namespace="arya-namespace"
+                namespace="ns1"
             )
         except PineconeException as e:
             raise Exception(f"Failed to initialize Pinecone: {str(e)}")
