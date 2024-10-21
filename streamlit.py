@@ -1,3 +1,5 @@
+# Now let's update the Streamlit app (save as app.py):
+
 import streamlit as st
 import warnings
 from config import load_config
@@ -8,21 +10,14 @@ def initialize_chatbot():
     """Initialize the chatbot with configuration."""
     try:
         config = load_config()
-        chatbot = AryaChatbot(
+        return AryaChatbot(
             pinecone_api_key=config['PINECONE_API_KEY'],
             pinecone_env=config['PINECONE_ENV'],
             huggingface_api=config['HUGGING_FACE_API']
         )
-        chatbot.setup()
-        return chatbot
     except Exception as e:
         st.error(f"Failed to initialize chatbot: {str(e)}")
         return None
-
-def handle_enter():
-    """Handle Enter key press"""
-    if st.session_state.user_input and st.session_state.user_input.strip():
-        handle_user_input(st.session_state.user_input)
 
 def handle_user_input(user_question):
     """Handle user input and generate response."""
@@ -102,39 +97,23 @@ def main():
         if "chat_history" not in st.session_state:
             st.session_state.chat_history = []
         
-        # Input container with mobile-friendly buttons
+        # Input container with single send button
         with st.container():
-            # Using columns for input and buttons
-            col1, col2, col3, col4 = st.columns([6, 1.5, 1.5, 1.5])
+            col1, col2 = st.columns([5, 1])
             
             with col1:
-                # Text input
                 st.text_input(
                     "Your Question:",
                     key="user_input",
-                    on_change=handle_enter,
                     placeholder="Type your question..."
                 )
             
-            # Mobile-friendly buttons
             with col2:
-                if st.button("Enter ↵", use_container_width=True):
+                if st.button("Send", use_container_width=True):
                     handle_user_input(st.session_state.user_input)
-            
-            with col3:
-                if st.button("Send →", use_container_width=True):
-                    handle_user_input(st.session_state.user_input)
-            
-            # Clear button for mobile users
-            with col4:
-                if st.button("Clear ✗", use_container_width=True):
-                    st.session_state.user_input = ""
-                    st.experimental_rerun()
         
         display_chat_history()
         
-        # Footer with mobile-friendly spacing
-        st.markdown("<br>", unsafe_allow_html=True)
         st.markdown("---\n💻 Developed by **Himanshu**")
         
     except Exception as e:
