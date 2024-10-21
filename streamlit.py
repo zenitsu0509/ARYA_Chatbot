@@ -113,9 +113,9 @@ def main():
                     on_change=handle_user_input,
                     args=(st.session_state.user_input,) if "user_input" in st.session_state else ("",)
                 )
-            with col2:
-                if st.button("Send", use_container_width=True):
-                    handle_user_input(user_question)
+            # with col2:
+            #     if st.button("Send", use_container_width=True):
+            #         handle_user_input(user_question)
         
         # Display chat history with pagination
         display_chat_history()
