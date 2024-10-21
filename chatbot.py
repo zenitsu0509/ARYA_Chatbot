@@ -47,23 +47,14 @@ class AryaChatbot:
         repo_id = "mistralai/Mixtral-8x7B-Instruct-v0.1"
         endpoint_url = f"https://api-inference.huggingface.co/models/{repo_id}"
         
-        # Parameters that should be passed directly
-        temperature = 0.7
-        top_k = 50
-        
-        # Parameters for model_kwargs
-        model_kwargs = {
-            "max_length": 512,
-            "num_return_sequences": 1
-        }
-        
         return HuggingFaceEndpoint(
             endpoint_url=endpoint_url,
             huggingfacehub_api_token=self.huggingface_api,
-            task="text2text-generation",
-            temperature=temperature,  # Pass temperature directly
-            top_k=top_k,  # Pass top_k directly
-            model_kwargs=model_kwargs  # Only include parameters that should be in model_kwargs
+            max_length=512,
+            temperature=0.7,
+            top_k=50,
+            num_return_sequences=1,
+            task="text2text-generation"
         )
 
     def _create_qa_chain(self) -> RetrievalQA:
