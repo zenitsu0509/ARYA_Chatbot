@@ -1,3 +1,5 @@
+# config.py
+
 import os
 import streamlit as st
 from dotenv import load_dotenv
@@ -17,11 +19,7 @@ def load_config():
     required_vars = [
         'PINECONE_API_KEY',
         'PINECONE_ENV',
-        'HUGGING_FACE_API',
-        'DB_HOST',      # MySQL host
-        'DB_USER',      # MySQL user
-        'DB_PASSWORD',  # MySQL password
-        'DB_NAME'       # MySQL database name
+        'HUGGING_FACE_API'
     ]
 
     # Try getting variables from different sources

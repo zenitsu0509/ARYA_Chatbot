@@ -1,35 +1,27 @@
 import os
 from typing import Dict, List
-import mysql.connector
 from langchain_pinecone import PineconeVectorStore
+from langchain_pinecone import PineconeEmbeddings
 from pinecone import Pinecone, PineconeException
 from langchain_huggingface import HuggingFaceEmbeddings, HuggingFaceEndpoint
 from langchain.chains import RetrievalQA
 from langchain.prompts import PromptTemplate
-from config import load_config  # Import load_config from config.py
 
 class AryaChatbot:
-    def __init__(self):
-        """Initialize the chatbot with necessary credentials and setup components."""
-        config = load_config()  # Load configuration
+    def __init__(self, pinecone_api_key: str, pinecone_env: str, huggingface_api: str):
+        """Initialize the chatbot with necessary credentials."""
+        self.pinecone_api_key = pinecone_api_key
+        self.pinecone_env = pinecone_env
+        self.huggingface_api = huggingface_api
+        self.vector_store = None
+        self.llm = None
+        self.qa_chain = None
         
-        self.pinecone_api_key = config['PINECONE_API_KEY']
-        self.pinecone_env = config['PINECONE_ENV']
-        self.huggingface_api = config['HUGGING_FACE_API']
-        
-        # Initialize components directly
+    def setup(self):
+        """Set up all components of the chatbot."""
         self.vector_store = self._setup_pinecone()
         self.llm = self._setup_llm()
         self.qa_chain = self._create_qa_chain()
-        
-        # Connect to the MySQL database
-        self.db_connection = mysql.connector.connect(
-            host=config['DB_HOST'],
-            user=config['DB_USER'],
-            password=config['DB_PASSWORD'],
-            database=config['DB_NAME']
-        )
-        self.cursor = self.db_connection.cursor()
         
     def _setup_pinecone(self, index_name: str = "arya-index-o") -> PineconeVectorStore:
         """Initialize Pinecone and return vector store."""
@@ -66,7 +58,7 @@ class AryaChatbot:
         )
 
     def _create_qa_chain(self) -> RetrievalQA:
-        """Create the question-answering chain."""
+        """Create the question-answering chain with custom prompt."""
         template = """
         You are Arya, the official bot of Arya Bhatt Hostel. Your role is to provide accurate and helpful information about the hostel.
 
@@ -96,6 +88,9 @@ class AryaChatbot:
     def get_response(self, question: str) -> str:
         """Get response for a given question."""
         try:
+            if not self.qa_chain:
+                raise Exception("Chatbot not properly initialized. Call setup() first.")
+            
             response = self.qa_chain.invoke(question)
             return response['result']
         except Exception as e:
