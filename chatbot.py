@@ -6,6 +6,8 @@ from pinecone import Pinecone, PineconeException
 from langchain_huggingface import HuggingFaceEmbeddings, HuggingFaceEndpoint
 from langchain.chains import RetrievalQA
 from langchain.prompts import PromptTemplate
+import re
+from menu import get_menu_for_day, get_full_week_menu
 
 class AryaChatbot:
     def __init__(self, pinecone_api_key: str, pinecone_env: str, huggingface_api: str):
