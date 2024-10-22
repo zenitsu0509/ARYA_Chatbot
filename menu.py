@@ -15,20 +15,20 @@ class MessMenu:
     
     def connect_to_db(self):
         """Establish connection to the MySQL database using credentials from config."""
-    try:
-        connection = mysql.connector.connect(
-            host=self.config['MYSQL_HOST'],
-            port=self.config['MYSQL_PORT'],
-            database=self.config['MYSQL_DATABASE'],
-            user=self.config['MYSQL_USER'],
-            password=self.config['MYSQL_PASSWORD']
-        )
-        if connection.is_connected():
-            return connection
+        try:
+            connection = mysql.connector.connect(
+                host=self.config['MYSQL_HOST'],
+                port=self.config['MYSQL_PORT'],
+                database=self.config['MYSQL_DATABASE'],
+                user=self.config['MYSQL_USER'],
+                password=self.config['MYSQL_PASSWORD']
+            )
+            if connection.is_connected():
+                return connection
             
-    except Error as e:
-        print(f"Error connecting to MySQL: {e}")
-        return None
+        except Error as e:
+            print(f"Error connecting to MySQL: {e}")
+            return None
 
     def get_menu_for_day(self, day_of_week: str) -> Optional[Dict]:
         """Fetch the menu for a specific day."""
