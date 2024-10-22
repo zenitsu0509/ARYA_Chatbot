@@ -91,7 +91,44 @@ class AryaChatbot:
             if not self.qa_chain:
                 raise Exception("Chatbot not properly initialized. Call setup() first.")
             
+            # Check if the question is related to the menu
+            menu_response = self.handle_menu_query(question)
+            if menu_response:
+                return menu_response
+            
+            # Otherwise, use the QA chain for normal responses
             response = self.qa_chain.invoke(question)
             return response['result']
         except Exception as e:
             raise Exception(f"Error getting response: {str(e)}")
+    
+    def handle_menu_query(self, question: str) -> str:
+        """Handle questions related to the mess menu."""
+        # Normalize the question to lowercase
+        question_lower = question.lower()
+        
+        # Check if the question asks about the weekly menu
+        if re.search(r"week(ly)? menu", question_lower):
+            weekly_menu = get_full_week_menu()
+            if weekly_menu:
+                menu_string = "Weekly Mess Menu:\n"
+                for day_menu in weekly_menu:
+                    menu_string += f"\n{day_menu['day_of_week']}:\n  Morning: {day_menu['morning_menu']}\n  Evening: {day_menu['evening_menu']}\n  Night: {day_menu['night_menu']}\n  Dessert: {day_menu['dessert']}\n"
+                return menu_string
+            return "Sorry, I couldn't retrieve the weekly menu at the moment."
+        
+        # Check if the question asks about a specific day's menu
+        days_of_week = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
+        for day in days_of_week:
+            if day in question_lower:
+                day_menu = get_menu_for_day(day.capitalize())
+                if day_menu:
+                    return (f"Menu for {day_menu['day_of_week']}:\n"
+                            f"  Morning: {day_menu['morning_menu']}\n"
+                            f"  Evening: {day_menu['evening_menu']}\n"
+                            f"  Night: {day_menu['night_menu']}\n"
+                            f"  Dessert: {day_menu['dessert']}")
+                return f"Sorry, I couldn't retrieve the menu for {day.capitalize()}."
+        
+        # If no menu-related question detected, return None
+        return None

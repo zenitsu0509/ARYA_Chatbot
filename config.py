@@ -9,7 +9,7 @@ def load_config():
     Load configuration from environment variables or Streamlit secrets.
     Returns dict with configuration values.
     """
-    # First try loading from .env file
+    # Load environment variables from .env file
     load_dotenv()
 
     # Dictionary to store our configuration
@@ -19,7 +19,9 @@ def load_config():
     required_vars = [
         'PINECONE_API_KEY',
         'PINECONE_ENV',
-        'HUGGING_FACE_API'
+        'HUGGING_FACE_API',
+        'MYSQL_USER',          # Add MySQL User
+        'MYSQL_PASSWORD'       # Add MySQL Password
     ]
 
     # Try getting variables from different sources
