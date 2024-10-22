@@ -1,5 +1,3 @@
-# config.py
-
 import os
 import streamlit as st
 from dotenv import load_dotenv
@@ -20,11 +18,18 @@ def load_config():
         'PINECONE_API_KEY',
         'PINECONE_ENV',
         'HUGGING_FACE_API',
-        'MYSQL_USER',          # Add MySQL User
-        'MYSQL_PASSWORD'       # Add MySQL Password
+        'MYSQL_USER',
+        'MYSQL_PASSWORD'
     ]
 
-    # Try getting variables from different sources
+    # Optional variables with defaults
+    optional_vars = {
+        'MYSQL_HOST': '127.0.0.1',
+        'MYSQL_PORT': '3306',
+        'MYSQL_DATABASE': 'Mess_Menu'
+    }
+
+    # Load required variables
     for var in required_vars:
         # First check Streamlit secrets (for deployment)
         if hasattr(st.secrets, var):
@@ -35,8 +40,15 @@ def load_config():
         else:
             config[var] = None
 
-    # Validate configuration
-    missing_vars = [var for var, value in config.items() if value is None]
+    # Load optional variables with defaults
+    for var, default in optional_vars.items():
+        if hasattr(st.secrets, var):
+            config[var] = st.secrets[var]
+        else:
+            config[var] = os.getenv(var, default)
+
+    # Validate required configuration
+    missing_vars = [var for var in required_vars if config[var] is None]
     if missing_vars:
         raise EnvironmentError(
             f"Missing required environment variables: {', '.join(missing_vars)}\n"
