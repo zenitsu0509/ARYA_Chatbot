@@ -50,3 +50,4 @@ def get_full_week_menu():
         except Error as e:
             print(f"Error fetching weekly menu: {e}")
             return None
+print(get_full_week_menu())
