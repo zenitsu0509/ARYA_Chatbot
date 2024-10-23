@@ -24,7 +24,7 @@ def load_config():
 
     # Optional variables with defaults
     optional_vars = {
-        'MYSQL_HOST': '127.0.0.1',
+        'MYSQL_HOST': 'localhost',
         'MYSQL_PORT': '3306',
         'MYSQL_DATABASE': 'Mess_Menu'
     }
