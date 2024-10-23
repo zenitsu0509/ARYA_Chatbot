@@ -110,7 +110,11 @@ class AryaChatbot:
             logger.debug(f"Handling menu query: {question_lower}")
 
             # Handle current menu query
-            if re.search(r"(current menu|today's menu|what's for|what is for|what are we eating|mess menu|food)", question_lower):
+            if re.search(r"(current menu|today menu|what's for|what is for|what are we eating|mess menu|food|"
+                        r"today's food|what's being served|what is on the menu|what are we having|"
+                        r"what are we eating today|what's on today's menu|what's on the menu for today|"
+                        r"what are we getting in the mess|what food is in the mess|what is for lunch|"
+                        r"what is for dinner|today's lunch menu|today's dinner menu)", question_lower):
                 logger.debug("Fetching current menu")
                 return self.menu_system.get_current_menu()
 
@@ -122,31 +126,65 @@ class AryaChatbot:
                     return self.menu_system.format_full_menu(weekly_menu)
                 return "Sorry, I couldn't retrieve the weekly menu at the moment."
 
-            # Handle specific day query
+            # Handle specific day and time query
             days_of_week = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
+            meals = ['breakfast', 'lunch', 'dinner', 'dessert', 'morning', 'night']
+            
+            day_found = None
+            meal_found = None
+
+            # Search for day and meal in the question
             for day in days_of_week:
                 if day in question_lower:
-                    logger.debug(f"Fetching menu for {day.capitalize()}")
-                    day_menu = self.menu_system.get_menu_for_day(day.capitalize())
-                    if day_menu:
-                        response = [
-                            f"📅 Menu for {day_menu['day_of_week']}:",
-                            f"🌅 Breakfast: {day_menu['morning_menu']}",
-                            f"🌞 Lunch: {day_menu['evening_menu']}",
-                            f"🌙 Dinner: {day_menu['night_menu']}"
-                        ]
-                        
-                        if day_menu['dessert'] != 'OFF':
-                            response.append(f"🍨 Dessert: {day_menu['dessert']}")
-                            
-                        return "\n".join(response)
-                    return f"Sorry, I couldn't retrieve the menu for {day.capitalize()}."
+                    day_found = day.capitalize()
+                    break
+
+            for meal in meals:
+                if meal in question_lower:
+                    meal_found = meal
+                    break
+
+            if day_found:
+                logger.debug(f"Fetching menu for {day_found}")
+                day_menu = self.menu_system.get_menu_for_day(day_found)
+                if day_menu:
+                    # If a specific meal is mentioned
+                    if meal_found:
+                        logger.debug(f"Fetching {meal_found} for {day_found}")
+                        meal_map = {
+                            'breakfast': 'morning_menu',
+                            'morning': 'morning_menu',  
+                            'lunch': 'evening_menu',
+                            'dinner': 'night_menu',
+                            'night': 'night_menu',  
+                            'dessert': 'dessert'
+                        }
+                        specific_meal = day_menu.get(meal_map.get(meal_found))
+                        if specific_meal and specific_meal != 'OFF':
+                            return f"📅 {day_found.capitalize()}'s {meal_found.capitalize()}: {specific_meal}"
+                        return f"Sorry, no {meal_found} is available for {day_found}."
+
+                    # If no specific meal is mentioned, return the full day's menu
+                    response = [
+                        f"📅 Menu for {day_menu['day_of_week']}:",
+                        f"🌅 Breakfast: {day_menu['morning_menu']}",
+                        f"🌞 Lunch: {day_menu['evening_menu']}",
+                        f"🌙 Dinner: {day_menu['night_menu']}"
+                    ]
+                    
+                    if day_menu['dessert'] != 'OFF':
+                        response.append(f"🍨 Dessert: {day_menu['dessert']}")
+
+                    return "\n".join(response)
+                
+                return f"Sorry, I couldn't retrieve the menu for {day_found}."
 
         except Exception as e:
             logger.error(f"Error handling menu query: {str(e)}")
             return "Sorry, I couldn't retrieve the menu at the moment."
 
         return None
+
 
     def get_response(self, question: str) -> str:
         """Get response for a given question."""
