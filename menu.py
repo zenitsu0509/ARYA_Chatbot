@@ -11,7 +11,7 @@ class MessMenu:
     def __init__(self):
         logger.debug("Initializing MessMenu")
         # Read CSV file into DataFrame
-        self.df = pd.read_csv('data\mess_menu.csv')
+        self.df = pd.read_csv('data/mess_menu.csv')
         self.meal_times = {
             'morning': (5, 10),    # 5 AM to 10 AM
             'evening': (11, 16),   # 11 AM to 4 PM
