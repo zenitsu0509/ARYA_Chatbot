@@ -1,0 +1,8 @@
+day_of_week,morning_menu,evening_menu,night_menu,dessert
+Sunday,"Aloo Paratha, Lassi/Tea","Veg Biryani, Raita, Papad","Paneer, Puri/Roti, Pulav",Rasgulla
+Monday,"Bread Pakoda, Chana, Milk/Tea","Arhar Dal, Rice, Mixed Veg","Aloo Chana, Mix Dal, Chapati/Rice",Ice Cream
+Tuesday,"Poha, Jalebi, Milk/Tea","Seasonal Veg, Dal, Raita, Rice","Puri, Sabji, Kachori, Chola",Kheer
+Wednesday,"Dalia, Tea","Paneer/Chicken, Pulav, Raita, Naan","Seasonal Veg, Dal, Raita, Rice",Custard
+Thursday,"Puri, Sabji, Dalia, Tea/Milk","Curry, Arhar Dal, Aloo Baingan, Seasonal Veg, Rice","Kaddu, Arhar Dal, Chapati, Rice",Dahi
+Friday,"Idli/Sambhar, Butter, Tea/Milk","Rajma, Seasonal Veg, Jeera Rice, Roti","Seasonal Veg, Chana Dal, Rice, Chapati",Jalebi
+Saturday,"Aloo Chaat, Tea/Milk","Baingan Bharta, Dal, Roti, Rice",OFF,OFF
