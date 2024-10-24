@@ -27,15 +27,21 @@ def initialize_chatbot(config):
         st.error(f"Failed to initialize chatbot: {str(e)}")
         return None
 
-# Cache the response generation
+# Cache responses based only on the question
 @st.cache_data(max_entries=100, ttl=3600)
-def get_cached_response(question: str, chatbot) -> str:
+def get_cached_response(question: str) -> str:
     """Cache chatbot responses to reduce API calls and computation."""
+    # Access chatbot from session state
+    chatbot = st.session_state.chatbot
+    if chatbot is None:
+        raise ValueError("Chatbot not initialized")
     return chatbot.get_response(question)
 
 def clear_chat_history():
     """Clear chat history and session state."""
     st.session_state.chat_history = []
+    # Clear the response cache when clearing history
+    get_cached_response.clear()
     gc.collect()  # Force garbage collection
 
 def manage_chat_history(history, max_length=50):
@@ -43,6 +49,27 @@ def manage_chat_history(history, max_length=50):
     if len(history) > max_length:
         history = history[-max_length:]  # Keep only the latest conversations
     return history
+
+def handle_input():
+    """Handle the submission of user input."""
+    if st.session_state.user_input.strip():  # Check if input is not just whitespace
+        user_question = st.session_state.user_input
+        try:
+            with st.spinner('Processing your question...'):
+                response = get_cached_response(user_question)
+                result = {
+                    'question': user_question,
+                    'response': response
+                }
+                if 'chat_history' not in st.session_state:
+                    st.session_state.chat_history = []
+                st.session_state.chat_history.append(result)
+                st.session_state.chat_history = manage_chat_history(st.session_state.chat_history)
+        except Exception as e:
+            st.error(f"Error processing your question: {str(e)}")
+    
+    # Clear input by setting it to empty string
+    st.session_state.user_input = ""
 
 def main():
     try:
@@ -76,26 +103,13 @@ def main():
         if st.button("Clear Chat History"):
             clear_chat_history()
         
-        # Chat input with memory management
-        user_question = st.text_input("Your Question:", key="user_input")
-        
-        if user_question and st.session_state.chatbot:
-            try:
-                with st.spinner('Processing your question...'):
-                    # Use cached response
-                    response = get_cached_response(user_question, st.session_state.chatbot)
-                    
-                    result = {
-                        'question': user_question,
-                        'response': response
-                    }
-                    
-                    # Manage chat history length
-                    st.session_state.chat_history.append(result)
-                    st.session_state.chat_history = manage_chat_history(st.session_state.chat_history)
-                    
-            except Exception as e:
-                st.error(f"Error processing your question: {str(e)}")
+        # Create a form for input
+        with st.form(key='chat_form', clear_on_submit=True):
+            user_input = st.text_input(
+                "Your Question:",
+                key="user_input"
+            )
+            submit_button = st.form_submit_button("Send", on_click=handle_input)
         
         # Display chat history efficiently
         if st.session_state.chat_history:
