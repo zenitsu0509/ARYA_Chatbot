@@ -29,7 +29,7 @@ def initialize_chatbot(config):
 
 # Cache the response generation
 @st.cache_data(max_entries=100, ttl=3600)
-def get_cached_response(question: str, chatbot) -> str:
+def get_cached_response(question: str, _chatbot) -> str:
     """Cache chatbot responses to reduce API calls and computation."""
     return chatbot.get_response(question)
 
