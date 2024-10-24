@@ -9,6 +9,7 @@ from langchain.chains import RetrievalQA
 from langchain.prompts import PromptTemplate
 import re
 from menu import MessMenu
+from hostel_photos import HostelPhotos
 import logging
 
 # Set up logging
@@ -25,6 +26,7 @@ class AryaChatbot:
         self.llm = None
         self.qa_chain = None
         self.menu_system = MessMenu()
+        self.photo_system = HostelPhotos()
         
     def setup(self):
         """Set up all components of the chatbot."""
@@ -193,7 +195,12 @@ class AryaChatbot:
             menu_response = self.handle_menu_query(question)
             if menu_response:
                 return menu_response
-
+            # Then, check if the question is related to photos
+            photo_paths = self.photo_system.handle_photo_query(question)
+            if photo_paths:
+                if len(photo_paths) == 1:
+                    return f"Here's the photo you requested: {photo_paths[0]}"
+                return f"Here are {len(photo_paths)} relevant photos:\n" + "\n".join(photo_paths[:5])
             # If it's not a menu query, proceed with normal QA handling
             if not self.qa_chain:
                 raise Exception("Chatbot not properly initialized. Call setup() first.")
@@ -203,25 +210,6 @@ class AryaChatbot:
         except Exception as e:
             raise Exception(f"Error getting response: {str(e)}") 
 
-
-# Test function to verify menu queries
-def test_handle_menu_query():
-    bot = AryaChatbot("pinecone_key", "pinecone_env", "huggingface_key")
-    bot.setup()  # Ensure everything is set up
-
-    test_questions = [
-        "What's today's menu?",
-        "What are we eating?",
-        "What's for lunch?",
-        "Tell me about the current menu.",
-        "Show me the mess menu",
-        "I want to know the food today."
-    ]
-
-    for question in test_questions:
-        print(f"Query: {question}")
-        response = bot.handle_menu_query(question)
-        print(f"Response: {response}\n")
 
 
 if __name__ == "__main__":
