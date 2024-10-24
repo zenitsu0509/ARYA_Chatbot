@@ -25,12 +25,12 @@ def main():
         
         # Setup page configuration
         st.set_page_config(
-            page_title="ARYA - Arya Bhatt Hostel Chatbot",
+            page_title="ARYA - Arya Bhatt Dev",
             page_icon="🏢",
             layout="centered"
         )
         
-        st.title("🏢 ARYA - Your Hostel Assistant")
+        st.title("🏢 ARYA - Develpment")
         st.markdown("""
         Welcome to the Arya Bhatt Hostel chatbot! I'm here to help you with any questions about the hostel.
         Feel free to ask about facilities, rules, or any other hostel-related matters.
