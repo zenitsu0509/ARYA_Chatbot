@@ -169,7 +169,7 @@ class AryaChatbot:
 # Test function to verify menu queries
 def test_handle_menu_query():
     bot = AryaChatbot("pinecone_key", "pinecone_env", "huggingface_key")
-    bot.setup()  # Ensure everything is set up
+    bot.setup() 
 
     test_questions = [
         "What's today's menu?",
