@@ -10,3 +10,4 @@ __pycache__/
 *.log
 try.ipynb
 test.py
+data2.txt
