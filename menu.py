@@ -2,6 +2,7 @@ from datetime import datetime
 import pandas as pd
 import logging
 from typing import Dict, List, Optional
+import pytz
 
 # Set up logging
 logging.basicConfig(level=logging.DEBUG)
@@ -23,47 +24,35 @@ class MessMenu:
         """Fetch the menu for a specific day."""
         logger.debug(f"Fetching menu for {day_of_week}")
         try:
-            # Filter DataFrame for the specific day
             menu = self.df[self.df['day_of_week'] == day_of_week]
-            
             if not menu.empty:
-                # Convert the row to dictionary
                 result = menu.iloc[0].to_dict()
                 logger.debug(f"Menu found for {day_of_week}: {result}")
                 return result
             else:
                 logger.debug(f"No menu found for {day_of_week}")
                 return None
-
         except Exception as e:
             logger.error(f"Error fetching menu for {day_of_week}: {e}")
             return None
 
     def get_full_week_menu(self) -> Optional[List[Dict]]:
-        """Fetch the full menu for the week."""
         logger.debug("Fetching full week menu")
         try:
-            # Define the correct order of days
             day_order = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 
                         'Thursday', 'Friday', 'Saturday']
-            
-            # Sort DataFrame according to day order
             sorted_df = self.df.set_index('day_of_week').loc[day_order].reset_index()
-            
-            # Convert DataFrame to list of dictionaries
             result = sorted_df.to_dict('records')
-            
             logger.debug(f"Retrieved {len(result)} days of menu data")
             return result
-
         except Exception as e:
             logger.error(f"Error fetching weekly menu: {e}")
             return None
 
     def get_current_menu(self) -> str:
-        """Get and format the current day's menu based on time."""
         logger.debug("Getting current menu")
-        current_time = datetime.now()
+        ist = pytz.timezone('Asia/Kolkata')
+        current_time = datetime.now(ist)
         current_day = current_time.strftime('%A')
         current_meal = self.get_current_meal_time()
         
@@ -97,8 +86,8 @@ class MessMenu:
         return final_response
 
     def get_current_meal_time(self) -> str:
-        """Determine current meal time based on hour of day."""
-        current_hour = datetime.now().hour
+        ist = pytz.timezone('Asia/Kolkata')
+        current_hour = datetime.now(ist).hour
         logger.debug(f"Current hour: {current_hour}")
         
         for meal_type, (start_hour, end_hour) in self.meal_times.items():
