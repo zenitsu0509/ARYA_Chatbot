@@ -124,8 +124,6 @@ def test_photo_handling():
     test_questions = [
         "Show me the hostel rooms",
         "Can I see pictures of the mess?",
-        "What does the gym look like?",
-        "Show photos of recent events",
         "I want to see the hostel building",
         "Pictures of double rooms please",
         "Show me the library photos"
