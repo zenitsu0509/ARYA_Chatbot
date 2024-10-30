@@ -106,7 +106,7 @@ def main():
         
         # Setup page configuration
         st.set_page_config(
-            page_title="ARYA - Arya Bhatt Dev",
+            page_title="ARYA - Arya Bhatt Chat Bot",
             page_icon="🏢",
             layout="centered"
         )
@@ -118,7 +118,7 @@ def main():
         if st.session_state.chatbot is None:
             st.session_state.chatbot = initialize_chatbot(config)
         
-        st.title("🏢 ARYA - Development")
+        st.title("🏢 ARYA - Hostel AI Chatbot")
         st.markdown("""
         Welcome to the Arya Bhatt Hostel chatbot! I'm here to help you with any questions about the hostel.
         Feel free to ask about facilities, rules, or any other hostel-related matters.
