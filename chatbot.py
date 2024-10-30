@@ -189,26 +189,29 @@ class AryaChatbot:
 
 
     def get_response(self, question: str) -> str:
-        """Get response for a given question."""
         try:
-            # First, check if the question is related to the mess menu
+            # Check if the question is related to the mess menu
             menu_response = self.handle_menu_query(question)
             if menu_response:
                 return menu_response
-            # Then, check if the question is related to photos
+            
+            # Check if the question is related to photos
             photo_paths = self.photo_system.handle_photo_query(question)
             if photo_paths:
-                if len(photo_paths) == 1:
-                    return f"Here's the photo you requested: {photo_paths[0]}"
-                return f"Here are {len(photo_paths)} relevant photos:\n" + "\n".join(photo_paths[:5])
-            # If it's not a menu query, proceed with normal QA handling
+                # Return as list of image paths
+                return {"photos": photo_paths}
+            
+            # Handle regular QA response
             if not self.qa_chain:
                 raise Exception("Chatbot not properly initialized. Call setup() first.")
             
             response = self.qa_chain.invoke(question)
-            return response['result']
+            return {"text": response['result']}
+            
         except Exception as e:
-            raise Exception(f"Error getting response: {str(e)}") 
+            raise Exception(f"Error getting response: {str(e)}")
+
+ 
 
 
 
